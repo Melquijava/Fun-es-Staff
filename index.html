@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Estrutura de Cargos e Funções - Systems BSE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-card: #0b1020;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.2);
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --danger: #ef4444;
+      --border: #1f2933;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.45);
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617 55%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 32px 16px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(79, 70, 229, 0.9);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Cards genéricos */
+    .grid {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1.1fr 1.1fr;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #111827, #020617 60%);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.07;
+      background:
+        radial-gradient(circle at 0 0, var(--accent), transparent 55%),
+        radial-gradient(circle at 100% 100%, #06b6d4, transparent 55%);
+      pointer-events: none;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      color: var(--text-muted);
+    }
+
+    .card-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-body p {
+      margin-bottom: 8px;
+    }
+
+    .card-body ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .card-body li {
+      margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .card-body li::before {
+      content: "•";
+      color: var(--accent);
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      margin: 24px 0 12px;
+      border-left: 3px solid var(--accent);
+      padding-left: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .text-danger {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .adv-levels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .adv-pill {
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.4);
+      padding: 4px 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .footer-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .tagline span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Estrutura interna • Systems BSI
+      </div>
+      <h1>Guia de Cargos, Funções e Advertências</h1>
+      <p class="subtitle">
+        Documento oficial para organização da equipe, sem necessidade de cobrança manual.
+      </p>
+    </header>
+
+    <!-- Hierarquia Geral -->
+    <section>
+      <h2 class="section-title">1. Hierarquia Geral</h2>
+      <p class="section-subtitle">
+        Ordem hierárquica dos cargos dentro do servidor Systems BSI.
+      </p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              👑 CEO
+            </div>
+            <span class="chip">Topo da hierarquia</span>
+          </div>
+          <div class="card-body">
+            <p><span class="highlight">Função geral:</span> autoridade máxima do Systems BSI.</p>
+            <ul>
+              <li>Define a visão, objetivos e identidade do servidor.</li>
+              <li>Aprova eventos grandes, mudanças estruturais e decisões importantes.</li>
+              <li>Acompanha resultados das equipes e dos projetos.</li>
+              <li>Nomeia e remove cargos de liderança.</li>
+              <li>Garante alinhamento com os valores: ensino, respeito e profissionalismo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              🧭 Diretor Operacional
+            </div>
+            <span class="chip">Responsável pela execução</span>
+          </div>
+          <div class="card-body">
+            <p><span class="highlight">Função geral:</span> transformar a visão do CEO em ações concretas.</p>
+            <ul>
+              <li>Supervisiona toda a equipe: Gerentes, Supervisores e Colaboradores.</li>
+              <li>Distribui demandas e acompanha prazos e resultados.</li>
+              <li>Realiza alinhamentos com Gerentes e define planos semanais.</li>
+              <li>Aprova ideias de desafios, melhorias e eventos internos.</li>
+              <li>Serve como ponte entre CEO e o resto da staff.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              🧩 Gerente
+            </div>
+            <span class="chip">Liderança direta</span>
+          </div>
+          <div class="card-body">
+            <p><span class="highlight">Função geral:</span> liderar as equipes e garantir qualidade.</p>
+            <ul>
+              <li>Coordena Supervisores e Colaboradores.</li>
+              <li>Cria e organiza eventos, temporadas e sistemas de ranking.</li>
+              <li>Aprova desafios e conteúdos antes de serem lançados.</li>
+              <li>Supervisiona organização de canais, avisos e cronogramas.</li>
+              <li>Reporta ao Diretor Operacional o andamento da equipe.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              🛠️ Supervisor
+            </div>
+            <span class="chip">Coordenação operacional</span>
+          </div>
+          <div class="card-body">
+            <p><span class="highlight">Função geral:</span> executar e coordenar atividades no dia a dia.</p>
+            <ul>
+              <li>Cria desafios, missões e conteúdos recorrentes.</li>
+              <li>Organiza a divulgação de eventos e anúncios.</li>
+              <li>Supervisiona o trabalho dos Colaboradores.</li>
+              <li>Ajuda a manter o servidor ativo e funcional.</li>
+              <li>Repasse de demandas definidas pela Gerência.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              💼 Colaborador
+            </div>
+            <span class="chip">Base da equipe</span>
+          </div>
+          <div class="card-body">
+            <p><span class="highlight">Função geral:</span> apoiar nas tarefas operacionais e na rotina.</p>
+            <ul>
+              <li>Auxilia na criação e divulgação de desafios.</li>
+              <li>Ajuda a manter o chat ativo, interagindo com os membros.</li>
+              <li>Oferece suporte inicial a iniciantes em programação e cyber.</li>
+              <li>Executa tarefas repassadas pelos Supervisores e Gerentes.</li>
+              <li>Contribui com organização de canais e fluxo do servidor.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divisões -->
+    <section>
+      <h2 class="section-title">2. Divisões Internas: CCE e ACP</h2>
+      <p class="section-subtitle">
+        Além dos cargos, a equipe também é dividida em duas frentes de atuação.
+      </p>
+
+      <!-- CCE -->
+      <div class="card" style="margin-bottom: 18px;">
+        <div class="card-header">
+          <div class="card-title">
+            🔵 CCE — Centro de Comunidade e Engajamento
+          </div>
+          <span class="chip">Foco: comunidade, eventos e Discord</span>
+        </div>
+        <div class="card-body">
+          <p>
+            A equipe do CCE é responsável por <span class="highlight">manter o Discord vivo</span>: ativa o chat, cuida
+            da comunidade, cria desafios, eventos, avisos e experiências que prendem o membro dentro do servidor.
+          </p>
+
+          <br />
+          <p><strong>CEO no CCE</strong></p>
+          <ul>
+            <li>Aprova eventos grandes e mudanças estruturais no servidor.</li>
+            <li>Define diretrizes gerais de como o Systems BSI deve funcionar.</li>
+          </ul>
+
+          <p><strong>Diretor Operacional no CCE</strong></p>
+          <ul>
+            <li>Coordena tudo que envolve atividades internas do Discord.</li>
+            <li>Define metas semanais de atividade, engajamento e entregas.</li>
+            <li>Supervisiona os Gerentes responsáveis pelos eventos e comunicações.</li>
+          </ul>
+
+          <p><strong>Gerente no CCE</strong></p>
+          <ul>
+            <li>Cria eventos, temporadas, rankings e cronogramas de desafios.</li>
+            <li>Supervisiona Supervisores e Colaboradores do CCE.</li>
+            <li>Garante que avisos, regras e cronogramas sejam claros e bem postados.</li>
+            <li>Valida a qualidade dos desafios antes de serem lançados.</li>
+          </ul>
+
+          <p><strong>Supervisor no CCE</strong></p>
+          <ul>
+            <li>Responsável por criar desafios e conteúdos recorrentes.</li>
+            <li>Divulga eventos nos canais corretos e mantêm a comunidade informada.</li>
+            <li>Ajuda membros com dúvidas sobre o funcionamento dos desafios.</li>
+            <li>Coordena colaboradores na manutenção do chat ativo.</li>
+          </ul>
+
+          <p><strong>Colaborador no CCE</strong></p>
+          <ul>
+            <li>Cria e ajuda a divulgar desafios conforme orientação do Supervisor.</li>
+            <li>Tem a função de manter o chat ativo diariamente.</li>
+            <li>Interage com membros, respondendo dúvidas simples e incentivando a participação.</li>
+            <li>Auxilia na organização de canais, mensagens fixadas e avisos.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ACP -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            🟣 ACP — Área Comercial e Projetos
+          </div>
+          <span class="chip">Foco: serviços, projetos e empresas</span>
+        </div>
+        <div class="card-body">
+          <p>
+            A equipe do ACP é focada em <span class="highlight">entregas profissionais</span>: desenvolvimento de sites,
+            landing pages, bots de Discord, automações e qualquer serviço contratado com o Systems BSI.
+          </p>
+
+          <br />
+          <p><strong>CEO no ACP</strong></p>
+          <ul>
+            <li>Aprova contratos, parcerias e serviços externos.</li>
+            <li>Define o padrão de qualidade das entregas feitas em nome da marca.</li>
+          </ul>
+
+          <p><strong>Diretor Operacional no ACP</strong></p>
+          <ul>
+            <li>Organiza as equipes de projeto de acordo com a demanda.</li>
+            <li>Define prazos, metas e cronograma de entrega para cada cliente.</li>
+            <li>Faz a ponte entre o cliente e a equipe técnica.</li>
+          </ul>
+
+          <p><strong>Gerente no ACP</strong></p>
+          <ul>
+            <li>Supervisiona o desenvolvimento de sites, bots e sistemas.</li>
+            <li>Distribui tarefas entre Supervisores e Colaboradores.</li>
+            <li>Revisa o projeto final antes de ser entregue ao cliente.</li>
+            <li>Garante cumprimento de prazo e qualidade profissional.</li>
+          </ul>
+
+          <p><strong>Supervisor no ACP</strong></p>
+          <ul>
+            <li>Responsável técnico pela construção do projeto.</li>
+            <li>Define arquitetura, tecnologias e organização do código.</li>
+            <li>Orienta colaboradores na implementação das funcionalidades.</li>
+            <li>Realiza testes e validações antes da revisão do Gerente.</li>
+          </ul>
+
+          <p><strong>Colaborador no ACP</strong></p>
+          <ul>
+            <li>Desenvolve partes do site, bot ou automação conforme orientado.</li>
+            <li>Executa tarefas técnicas de nível simples a intermediário.</li>
+            <li>Reporta progresso ao Supervisor de forma clara e objetiva.</li>
+            <li>Segue o padrão de código e design definido pela equipe.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Advertências -->
+    <section>
+      <h2 class="section-title">3. Sistema de Advertências (ADV)</h2>
+      <p class="section-subtitle">
+        Válido para toda a staff do Systems BSI.
+      </p>
+
+      <div class="card">
+        <div class="card-body">
+          <p>
+            Caso algum membro da equipe não cumpra as funções designadas, falte com responsabilidade ou abandone tarefas,
+            será aplicado o sistema de advertências.
+          </p>
+
+          <div class="adv-levels">
+            <span class="adv-pill"><strong>ADV1</strong> — primeira falha ou atraso relevante.</span>
+            <span class="adv-pill"><strong>ADV2</strong> — reincidência ou falha mais grave.</span>
+            <span class="adv-pill"><strong>ADV3</strong> — <span class="text-danger">banimento</span> da equipe e do servidor.</span>
+          </div>
+
+          <br />
+          <p>
+            Ao atingir <span class="text-danger">ADV3</span>, o membro:
+          </p>
+          <ul>
+            <li>Perde o cargo na staff.</li>
+            <li>É removido do servidor Systems BSI.</li>
+            <li>Perde o acesso às vantagens e benefícios internos.</li>
+            <li>Perde cargos especiais e qualquer benefício exclusivo ligado à equipe.</li>
+          </ul>
+
+          <p class="footer-note">
+            Este sistema existe para manter a equipe responsável, organizada e profissional. Todos entram cientes de que
+            fazem parte de algo sério.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <p class="tagline">
+      Systems BSI • <span>Comunidade séria, ensino de verdade, equipe responsável.</span>
+    </p>        
+  </div>
+</body>
+</html>
