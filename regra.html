@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Relatório – Reunião da Staff SystemsBSI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg-main: #050712;
+      --bg-card: #0c1020;
+      --bg-card-alt: #111627;
+      --accent: #00c9ff;
+      --accent-soft: rgba(0, 201, 255, 0.1);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --danger: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #071a2f 0, #020617 40%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 32px 16px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 980px;
+      background: linear-gradient(135deg, #020617 0%, #020617 50%, #020617 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.9);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 24px 28px 18px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+      background: radial-gradient(circle at top left, #0b1935 0, #020617 45%);
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(
+        90deg,
+        rgba(0, 201, 255, 0.12),
+        transparent 30%,
+        transparent 70%,
+        rgba(56, 189, 248, 0.12)
+      );
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .title-block h1 {
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+
+    .title-block p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .badge-systems {
+      background: linear-gradient(90deg, #00c9ff, #00b4d8);
+      color: #020617;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 999px;
+      letter-spacing: 0.18em;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.5);
+      white-space: nowrap;
+    }
+
+    .meta {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .meta span strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    main {
+      padding: 20px 22px 26px;
+    }
+
+    section {
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      background: radial-gradient(circle at top left, #0b1020 0, #020617 55%);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    section:nth-of-type(even) {
+      background: radial-gradient(circle at top right, #050816 0, #020617 60%);
+    }
+
+    section h2 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    section h2 span.icon {
+      font-size: 1.15rem;
+    }
+
+    section p {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    ul {
+      margin-left: 16px;
+      padding-left: 4px;
+      margin-top: 4px;
+    }
+
+    li {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      line-height: 1.45;
+      margin-bottom: 4px;
+    }
+
+    .muted {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-muted);
+      margin-right: 6px;
+      margin-top: 4px;
+    }
+
+    .tag strong {
+      color: var(--accent);
+    }
+
+    .alert {
+      border-left: 3px solid var(--danger);
+      background: radial-gradient(circle at left, rgba(248, 113, 113, 0.13), transparent 60%);
+      padding-left: 12px;
+      margin-top: 8px;
+    }
+
+    .discord-format-grid {
+      display: grid;
+      grid-template-columns: minmax(120px, 190px) minmax(0, 1fr);
+      gap: 6px 14px;
+      margin-top: 8px;
+      font-size: 0.88rem;
+    }
+
+    .discord-format-grid div.label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    code {
+      font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+        Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.82rem;
+      background: rgba(15, 23, 42, 0.85);
+      border-radius: 6px;
+      padding: 2px 6px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: #e5e7eb;
+    }
+
+    pre {
+      font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+        Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      background: #020617;
+      color: #e5e7eb;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      overflow-x: auto;
+      margin-top: 8px;
+      white-space: pre;
+    }
+
+    .separator-examples code {
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 2px;
+    }
+
+    .footer {
+      padding: 12px 20px 18px;
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .footer span strong {
+      color: var(--accent);
+    }
+
+    @media (max-width: 720px) {
+      header,
+      main {
+        padding-inline: 16px;
+      }
+
+      .discord-format-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="header-top">
+        <div class="title-block">
+          <div class="badge-systems">SYSTEMS BSI • STAFF</div>
+          <h1>Relatório Oficial — Reunião da Staff</h1>
+          <p>
+            Diretrizes internas, padronização de perfil e uso do painel de controle
+            da SystemsBSI.
+          </p>
+        </div>
+      </div>
+      <div class="meta">
+        <span><strong>Responsável:</strong> Melquisedeque RA — CEO da SystemsBSI</span>
+        <span><strong>Data:</strong> 14/11/25</span>
+        <span><strong>Documento:</strong> Versão 1.0</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- Objetivo -->
+      <section id="objetivo">
+        <h2><span class="icon">📌</span> Objetivo da reunião</h2>
+        <p>
+          Esta reunião teve como objetivo alinhar o comportamento profissional da staff
+          dentro do Discord, padronizar perfis, organizar a comunicação oficial por
+          avisos e reforçar o uso obrigatório do painel de controle para tarefas e
+          moderação.
+        </p>
+      </section>
+
+      <!-- Perfil Profissional -->
+      <section id="perfil">
+        <h2><span class="icon">🧑‍💼</span> Padronização do perfil profissional</h2>
+        <p>
+          Todos os membros da staff devem manter um <strong>perfil profissional</strong>
+          dentro do servidor SystemsBSI.
+        </p>
+        <ul>
+          <li>
+            <strong>Nome:</strong> deve utilizar o <strong>nome real</strong> do membro.
+            É permitido usar fontes estilizadas (gradiente, neon, glow, etc.) desde que
+            o nome permaneça <strong>legível</strong> e com aparência profissional.
+          </li>
+          <li>
+            <strong>Foto de perfil:</strong> deve ser
+            <strong>uma imagem real do próprio membro</strong>, podendo ser
+            estilizada (cartoon, IA, avatar, cartão de visita), mas
+            <strong>sempre baseada em foto própria</strong>. É proibido usar fotos de
+            terceiros.
+          </li>
+          <li>
+            A faixa superior “<strong>Systems BSI</strong>” usada como banner de perfil
+            pode ser obtida no canal <strong>Elementos Gráficos</strong>, na categoria
+            <strong>Comando</strong>.
+          </li>
+        </ul>
+        <p class="muted">
+          O perfil de exemplo utilizado na reunião foi o do próprio CEO, como referência
+          visual de profissionalismo dentro do servidor.
+        </p>
+      </section>
+
+      <!-- Avisos -->
+      <section id="avisos">
+        <h2><span class="icon">📣</span> Regras para avisos (anúncios)</h2>
+        <p>
+          A partir desta reunião, <strong>todos os avisos oficiais</strong> da staff
+          devem seguir as seguintes regras:
+        </p>
+        <ul>
+          <li>
+            Todos os avisos devem ser postados <strong>exclusivamente</strong> no
+            canal de <strong>#avisos</strong>.
+          </li>
+          <li>
+            É <strong>proibido</strong> lançar avisos no chat geral.
+          </li>
+          <li>
+            Todo aviso deve ter estilização própria do SystemsBSI, utilizando:
+            <ul>
+              <li>Emojis personalizados do servidor;</li>
+              <li>Texto em <strong>negrito</strong> e <em>itálico</em> para dar destaque;</li>
+              <li>Partes importantes bem destacadas e bem organizadas;</li>
+              <li>Formatação visual limpa e profissional.</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Formatação Discord -->
+      <section id="formatacao-discord">
+        <h2><span class="icon">✍️</span> Guia de formatação de texto no Discord</h2>
+        <p>
+          Use estes padrões ao escrever avisos, comunicados e textos importantes no
+          servidor.
+        </p>
+
+        <div class="discord-format-grid">
+          <div class="label">Negrito</div>
+          <div><code>**texto**</code></div>
+
+          <div class="label">Itálico</div>
+          <div><code>*texto*</code> ou <code>_texto_</code></div>
+
+          <div class="label">Sublinhado</div>
+          <div><code>__texto__</code></div>
+
+          <div class="label">Riscado</div>
+          <div><code>~~texto~~</code></div>
+
+          <div class="label">Negrito + Sublinhado</div>
+          <div><code>**__texto__**</code></div>
+
+          <div class="label">Negrito + Itálico</div>
+          <div><code>***texto***</code></div>
+
+          <div class="label">Citação</div>
+          <div><code>&gt; texto</code></div>
+
+          <div class="label">Código inline</div>
+          <div><code>`texto`</code></div>
+
+          <div class="label">Bloco de código</div>
+          <div><code>```texto```</code></div>
+
+          <div class="label">Bloco com linguagem</div>
+          <div>
+            <code>```json</code><br />
+            <code>{ "exemplo": true }</code><br />
+            <code>```</code>
+          </div>
+        </div>
+
+        <div class="separator-examples">
+          <p style="margin-top:10px;">Exemplos de separadores para avisos:</p>
+          <code>━━━━━━━━━━━━━━━━━━</code>
+          <code>──────────────────</code>
+          <code>⎯⎯⎯⎯⎯⎯⎯⎯⎯</code>
+        </div>
+      </section>
+
+      <!-- Everyone -->
+      <section id="everyone">
+        <h2><span class="icon">🚫</span> Uso do @everyone</h2>
+        <p>
+          O uso de <strong>@everyone</strong> está
+          <strong>totalmente proibido</strong> em qualquer situação, com apenas
+          <strong>uma exceção</strong>:
+        </p>
+        <ul>
+          <li>
+            Pode ser utilizado <strong>somente</strong> em anúncios oficiais de
+            <strong>recrutamento da staff</strong>.
+          </li>
+        </ul>
+        <p>
+          Para qualquer outro tipo de aviso, devem ser utilizados cargos específicos
+          de notificação:
+        </p>
+        <span class="tag"><strong>Ping</strong> Programação</span>
+        <span class="tag"><strong>Ping</strong> Cybersecurity</span>
+        <span class="tag"><strong>Ping</strong> Eventos</span>
+        <span class="tag"><strong>Ping</strong> Sorteios</span>
+        <p class="muted" style="margin-top:6px;">
+          Outros cargos de ping podem ser criados para segmentar melhor as notificações
+          sem usar @everyone.
+        </p>
+      </section>
+
+      <!-- Painel de Controle -->
+      <section id="painel">
+        <h2><span class="icon">🛠️</span> Uso obrigatório do painel de controle</h2>
+        <p>
+          Foi definido que <strong>todas as ações da staff</strong> devem ser
+          registradas e executadas por meio do <strong>painel de controle</strong>.
+        </p>
+        <ul>
+          <li>Criação e acompanhamento de tarefas;</li>
+          <li>Registro de justificativas de ausência em reuniões e atividades;</li>
+          <li>
+            Processos de moderação (banimentos, punições, advertências, etc.);
+          </li>
+          <li>Acesso e utilização das ferramentas internas da SystemsBSI.</li>
+        </ul>
+        <div class="alert">
+          <p>
+            Nada deve ser feito “por fora” ou apenas no chat. Toda ação precisa estar
+            registrada no painel de controle.
+          </p>
+        </div>
+        <p class="muted" style="margin-top:8px;">
+          Um vídeo tutorial será disponibilizado explicando, passo a passo, como usar
+          o bot do painel de controle.
+        </p>
+      </section>
+
+      <!-- Funções da Staff -->
+      <section id="funcoes">
+        <h2><span class="icon">🧩</span> Cumprimento das funções da staff</h2>
+        <p>
+          Cada membro possui funções definidas tanto dentro do Discord quanto dentro da
+          estrutura da equipe.
+        </p>
+        <ul>
+          <li>
+            Estar em uma divisão (ACP ou CCE) <strong>não elimina</strong> as funções
+            gerais do cargo (CEO, Diretor, Gerente, Supervisor, Colaborador).
+          </li>
+          <li>
+            Todos devem cumprir suas responsabilidades de staff
+            <strong>além</strong> das atividades específicas de ACP/CCE.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Inatividade -->
+      <section id="inatividade">
+        <h2><span class="icon">⚠️</span> Inatividade e responsabilidade</h2>
+        <p>
+          A partir deste relatório, ninguém poderá justificar descumprimento de funções
+          com a frase “não participei da reunião, não sabia”.
+        </p>
+        <ul>
+          <li>
+            Este documento é a referência oficial de tudo o que foi decidido na
+            reunião.
+          </li>
+          <li>
+            Membros inativos ou que não cumprirem suas responsabilidades poderão ser
+            <strong>removidos da staff</strong>, conforme já previsto nas regras da
+            equipe.
+          </li>
+        </ul>
+      </section>
+
+      <!-- ACP -->
+      <section id="acp">
+        <h2><span class="icon">📈</span> ACP — Área Comercial e Projetos</h2>
+        <p>
+          Enquanto não houver empresas contratando serviços da SystemsBSI, os membros
+          da ACP devem:
+        </p>
+        <ul>
+          <li>Continuar estudando programação e se desenvolvendo tecnicamente;</li>
+          <li>
+            Aproveitar o tempo para se preparar para futuros projetos e demandas
+            comerciais;
+          </li>
+          <li>
+            Utilizar o novo formulário de ingresso na ACP, que já foi criado e
+            atualizado.
+          </li>
+        </ul>
+      </section>
+
+      <!-- CCE -->
+      <section id="cce">
+        <h2><span class="icon">🛡️</span> CCE — Coordenação de Comunidade e Engajamento</h2>
+        <p>
+          Foi definido que o formulário de ingresso na equipe de CCE será
+          <strong>totalmente reformulado</strong> para se adequar às novas necessidades
+          de moderação e engajamento do servidor.
+        </p>
+      </section>
+
+      <!-- Repasse -->
+      <section id="repasse">
+        <h2><span class="icon">🧑‍🏫</span> Responsáveis pelo repasse das informações</h2>
+        <p>
+          Foi estabelecido que os gerentes serão responsáveis por repassar todo o
+          conteúdo desta reunião aos seus respectivos subordinados:
+        </p>
+        <ul>
+          <li><strong>Iuri</strong> — Gerente;</li>
+          <li><strong>Martins</strong> — Gerente.</li>
+        </ul>
+        <p>
+          Eles devem garantir que supervisores e colaboradores recebam estas
+          orientações e entendam todas as regras definidas aqui.
+        </p>
+      </section>
+
+      <!-- Modelo de descrição de perfil -->
+      <section id="modelo-perfil">
+        <h2><span class="icon">📝</span> Modelo de descrição de perfil (para copiar e colar)</h2>
+        <p>
+          A staff poderá utilizar o modelo abaixo como base para a descrição do
+          perfil no Discord, ajustando apenas as competências, linguagem principal e
+          demais informações pessoais.
+        </p>
+        <pre>
+📂 CEO / Gerente / Supervisor / Colaborador da Systems BSI
+├─ Node / 23y
+├─ Administração
+├─ Gestão de Pessoas
+├─ Gestão de TI
+
+🔗 Systems BSI
+https://discord.gg/Y8YZWuN5Qx
+        </pre>
+        <p class="muted">
+          Cada membro deve alterar linguagem, idade, áreas e data de ingresso para os
+          seus próprios dados.
+        </p>
+        <p class="muted">
+          A faixa “Systems BSI” usada no topo do perfil pode ser baixada no canal
+          <strong>Elementos Gráficos</strong>, categoria <strong>Comando</strong>.
+        </p>
+      </section>
+
+      <!-- Conclusão -->
+      <section id="conclusao">
+        <h2><span class="icon">✔️</span> Conclusão</h2>
+        <p>
+          Este relatório registra oficialmente todas as decisões, normas e atualizações
+          definidas na reunião da staff SystemsBSI. A leitura e o cumprimento de cada
+          item aqui descrito são <strong>obrigatórios</strong> para todos os membros
+          da equipe.
+        </p>
+        <p class="muted" style="margin-top:6px;">
+          A partir de agora, este documento passa a ser a referência central de
+          conduta e organização interna da staff.
+        </p>
+      </section>
+    </main>
+
+    <div class="footer">
+      <span><strong>SystemsBSI</strong> • Comunidade focada em programação e cyber.</span>
+      <span>Relatório gerado para uso interno da equipe de staff.</span>
+    </div>
+  </div>
+</body>
+</html>

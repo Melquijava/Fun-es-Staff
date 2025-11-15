@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <title>Estrutura de Cargos e Funções - Systems BSI</title>
@@ -222,8 +223,37 @@
       color: var(--accent);
       font-weight: 500;
     }
+
+    .btn-systems {
+      display: inline-block;
+      background: linear-gradient(135deg, #00c9ff, #0099cc);
+      color: #020617;
+      font-weight: 700;
+      padding: 12px 26px;
+      border-radius: 12px;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      font-size: 1rem;
+      box-shadow: 0 0 12px rgba(0, 201, 255, 0.6),
+        0 0 30px rgba(0, 201, 255, 0.25);
+      border: 2px solid #00c9ff;
+      transition: 0.25s ease-in-out;
+      cursor: pointer;
+    }
+
+    .btn-systems:hover {
+      background: linear-gradient(135deg, #00e1ff, #00bdf2);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 16px rgba(0, 201, 255, 0.9),
+        0 0 40px rgba(0, 201, 255, 0.45);
+    }
+
+    .btn-systems:active {
+      transform: scale(0.97);
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <header class="page-header">
@@ -236,7 +266,7 @@
         Documento oficial para organização da equipe, sem necessidade de cobrança manual.
       </p>
     </header>
-
+    <a href="regra.html" class="btn-systems">📄 Ver Relatório da Reunião</a>
     <!-- Hierarquia Geral -->
     <section>
       <h2 class="section-title">1. Hierarquia Geral</h2>
@@ -468,14 +498,16 @@
       <div class="card">
         <div class="card-body">
           <p>
-            Caso algum membro da equipe não cumpra as funções designadas, falte com responsabilidade ou abandone tarefas,
+            Caso algum membro da equipe não cumpra as funções designadas, falte com responsabilidade ou abandone
+            tarefas,
             será aplicado o sistema de advertências.
           </p>
 
           <div class="adv-levels">
             <span class="adv-pill"><strong>ADV1</strong> — primeira falha ou atraso relevante.</span>
             <span class="adv-pill"><strong>ADV2</strong> — reincidência ou falha mais grave.</span>
-            <span class="adv-pill"><strong>ADV3</strong> — <span class="text-danger">banimento</span> da equipe e do servidor.</span>
+            <span class="adv-pill"><strong>ADV3</strong> — <span class="text-danger">banimento</span> da equipe e do
+              servidor.</span>
           </div>
 
           <br />
@@ -499,7 +531,8 @@
 
     <p class="tagline">
       Systems BSI • <span>Comunidade séria, ensino de verdade, equipe responsável.</span>
-    </p>        
+    </p>
   </div>
 </body>
+
 </html>
